@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: fortune-deploy
+   labels:
+      app: fortune
+
+spec:
+   replicas: 3
+   selector:
+      matchLabels:
+         app: fortune-pod
+   template:
+      # pod yaml 
+      metadata:
+         name: fortune-pod
+         labels:
+            app: fortune-pod
+      spec:
+         containers:
+         - name: fortune-container
+           image: leowweiching/fortune:v2
+           imagePullPolicy: IfNotPresent
+           ports:
+           - name: http-port 
+             containerPort: 3000
+
